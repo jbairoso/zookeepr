@@ -1,6 +1,7 @@
 const { animals } = require(`./data/animals.json`);
 const express = require("express");
 const { type } = require("express/lib/response");
+const req = require("express/lib/request");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -51,4 +52,9 @@ function filterByQuery(query, animalsArray) {
 
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
+});
+
+app.get("/api/animals/:id", (req, res) => {
+  const result = findById(req.params.id, animals);
+  res.json(result);
 });
